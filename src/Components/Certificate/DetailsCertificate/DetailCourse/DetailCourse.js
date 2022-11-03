@@ -36,7 +36,9 @@ class DetailCourse extends Component{
         <div className="Syllabus">
           <h2> Syllabus </h2>
           <ol>
-            { course.syllabus.part.map(item => <li>{ item }</li> )}
+            { course.syllabus.part.map(item => 
+                <li>{ item }</li>
+            )}
           </ol>
         </div>
       </div>

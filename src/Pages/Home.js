@@ -37,33 +37,14 @@ class HomePage extends Component {
           <div id="wargames">
           <pre style={{height: 400}}>
             <code >
-            GREETINGS PROFESSOR FALKEN.
-
-            Hello.
-
-
+            Bonjour Bonhomme
+            <br/>
             HOW ARE YOU FEELING TODAY?
-
+            <br/>
             I'm fine. How are you?
 
-
-            EXCELLENT. IT'S BEEN A LONG TIME. CAN YOU EXPLAIN 
-            THE REMOVAL OF YOUR USER ACCOUNT ON JUNE 23RD, 1973?
-
-            People sometimes make mistakes
-
-
-            YES THEY DO. SHALL WE PLAY A GAME?
-
-            Love to. How about Global Thermonuclear War?
-
-
-            WOULDN'T YOU PREFER A GOOD GAME OF CHESS?
-
-            Later. Right now let's play Global Thermonuclear War.
-
-            FINE.
-
+            <br/>
+            Merci d'appuyer sur entrer pour continuer
 
             </code>	
           </pre>
