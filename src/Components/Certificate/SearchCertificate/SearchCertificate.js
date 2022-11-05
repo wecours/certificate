@@ -1,6 +1,7 @@
 import { Component } from "react";
 import "./SearchCertificate.css";
 import Tab from "./Tab/Tab";
+import TabContainer from "./Tab/TabContainer/TabContainer";
 
 class SearchCertificate extends Component {
   state = {
@@ -10,7 +11,7 @@ class SearchCertificate extends Component {
      * - byNumeroCertificat
      * - byNameParticipant
      */
-    searchMode: TypeSearchMode.byReferenceCertificat,
+    searchMode: TypeSearchMode.byReferenceCertificat
   };
 
   onSubmit(event){
@@ -24,9 +25,14 @@ class SearchCertificate extends Component {
     console.log(24, this.state.searchMode == TypeSearchMode.byNameParticipant ? "byNameParticipant" : "byReferenceCertificat")
     return (
       <div>
-        <Tab onTabClick={(identifiantTab) => 
-            this.setState({searchMode: identifiantTab})}
-        />
+        <TabContainer>
+          <Tab onTabClick={identifiantTab => 
+              this.setState({searchMode: identifiantTab})}
+          />
+          <Tab onTabClick={(identifiantTab) => 
+              this.setState({searchMode: identifiantTab})}
+          />
+        </TabContainer>
         <div id="cover">
           <form onSubmit={this.onSubmit.bind(this)}>
             <div className="tb">
