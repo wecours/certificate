@@ -39,10 +39,17 @@ class TabContainer extends Component {
      */
     console.log("TabContainer.js:40, this.tabsModule:", this.tabsModule)
     getTabsModule && getTabsModule(this.tabsModule);
+
+    const { children, tabs } = this.props;
+    console.log("TabContainer.js:44:children, tabs : ", children, tabs);
+    /**
+     * Passage donnée de cette component(parent) => component enfant
+     */
+     tabs.forEach(tab => tab.setTabsModule(this.tabsModule) );
   }
 
   render(){
-    const { children } = this.props
+    const { children } = this.props;
     return (
       <div>
         <section className="ns-TabsModule" data-active-tab="A">
@@ -83,6 +90,10 @@ class TabContainer extends Component {
       this.positionIndicator();
   }
 
+  /**
+   * hideAllTabPanels :
+   * Manafina ny <Tab/> (Onglet) rehetra
+   */
   hideAllTabPanels() {
     //loop through all tab panel elements
     for (let i = 0; i < this.tabPanels.length; i++) {

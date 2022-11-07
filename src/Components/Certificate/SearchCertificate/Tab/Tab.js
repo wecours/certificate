@@ -5,7 +5,8 @@ import { TypeSearchMode } from "../SearchCertificate";
 
 const $ = jQuery;
 
-class Tab extends Component{
+class Tab extends Component {
+  tabsModule = null;
   tabNavLinks = null;
   refOngletByRefCert = null;
   refOngletByNomParticipant = null;
@@ -25,11 +26,15 @@ class Tab extends Component{
      */
     this.initialize();
   }
+  
+  setTabsModule(tabsModule){
+    this.tabsModule = tabsModule
+  }
 
   render(){
     return (
         <a 
-          ref={(ref) => this.refOngletByRefCert = ref}
+          ref={ref => this.refOngletByRefCert = ref}
           href="#ns-TabPanelA" 
           className="ns-TabNav_Link" 
           data-tab={"A"}

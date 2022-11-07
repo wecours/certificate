@@ -11,7 +11,8 @@ class SearchCertificate extends Component {
      * - byNumeroCertificat
      * - byNameParticipant
      */
-    searchMode: TypeSearchMode.byReferenceCertificat
+    searchMode: TypeSearchMode.byReferenceCertificat,
+    tabs: [],
   };
 
   onSubmit(event){
@@ -25,12 +26,14 @@ class SearchCertificate extends Component {
     console.log(24, this.state.searchMode == TypeSearchMode.byNameParticipant ? "byNameParticipant" : "byReferenceCertificat")
     return (
       <div>
-        <TabContainer>
+        <TabContainer tabs={this.state.tabs}>
           <Tab onTabClick={identifiantTab => 
               this.setState({searchMode: identifiantTab})}
+              ref={ref => this.state.tabs.push(ref)}
           />
           <Tab onTabClick={(identifiantTab) => 
               this.setState({searchMode: identifiantTab})}
+              ref={ref => this.state.tabs.push(ref)}
           />
         </TabContainer>
         <div id="cover">
