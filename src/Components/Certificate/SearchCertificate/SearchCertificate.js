@@ -13,6 +13,8 @@ class SearchCertificate extends Component {
      */
     searchMode: TypeSearchMode.byReferenceCertificat,
     tabs: [],
+    refTabContainer: null,
+    activeTabId: null,
   };
 
   onSubmit(event){
@@ -23,17 +25,29 @@ class SearchCertificate extends Component {
   }
 
   render(){
-    console.log(24, this.state.searchMode == TypeSearchMode.byNameParticipant ? "byNameParticipant" : "byReferenceCertificat")
+    console.log(24, this.state.searchMode == "B" ? "byNameParticipant" : "byReferenceCertificat")
     return (
       <div>
-        <TabContainer tabs={this.state.tabs}>
-          <Tab onTabClick={identifiantTab => 
-              this.setState({searchMode: identifiantTab})}
-              ref={ref => this.state.tabs.push(ref)}
+        <TabContainer ref={ref=> this.state.refTabContainer=ref}
+          activeTabId={this.state.activeTabId}
+          tabs={this.state.tabs}>
+          <Tab 
+            tabId="A"
+            tabTitle="Par reference certificat"
+            onTabClick={identifiantTab => this.setState({
+              searchMode: identifiantTab,
+              activeTabId: identifiantTab,
+            })}
+            ref={ref => ref && this.state.tabs.push(ref)}
           />
-          <Tab onTabClick={(identifiantTab) => 
-              this.setState({searchMode: identifiantTab})}
-              ref={ref => this.state.tabs.push(ref)}
+          <Tab 
+            tabId="B"
+            tabTitle="Par nom du participant"
+            onTabClick={(identifiantTab) => this.setState({
+              searchMode: identifiantTab,
+              activeTabId: identifiantTab,
+            })}
+            ref={ref => ref && this.state.tabs.push(ref)}
           />
         </TabContainer>
         <div id="cover">
@@ -56,6 +70,8 @@ class SearchCertificate extends Component {
       </div>
     )
   }
+
+  
 }
 
 export default SearchCertificate;

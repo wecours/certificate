@@ -7,8 +7,9 @@ class TabContainer extends Component {
   tabPanels = null;
   tabNavList = null;
   tabNavCurrentLinkindicator = null;
-
-  // constructor(){}
+  refTabContentA = null;
+  refTabContentB = null;
+  tabNavCurrentLinkindicator = null;
 
   /**
    * Hook => function special react
@@ -21,7 +22,6 @@ class TabContainer extends Component {
    * Appelé UNE SEUL fois
    */
   componentDidMount(){
-
     this.initilize();
     const { getTabsModule } = this.props;
     /**
@@ -48,46 +48,39 @@ class TabContainer extends Component {
      tabs.forEach(tab => tab.setTabsModule(this.tabsModule) );
   }
 
+  componentDidUpdate(){
+    console.log("TabContainer:52:componentDidUpdate");
+    const { activeTabId } = this.props;
+    activeTabId && this.handleClickTab(activeTabId);
+  }
+
   render(){
     const { children } = this.props;
     return (
       <div>
-        <section className="ns-TabsModule" data-active-tab="A">
+        <section ref={ref => this.tabsModule = ref} // Récuperation element facon React
+          className="ns-TabsModule" data-active-tab="A">
         
-          <div className="ns-ScrollWrapper">    
-            <nav className="ns-TabNav">
+          <div className="ns-ScrollWrapper">
+            <nav className="ns-TabNav" ref={ref=>this.tabNavList=ref}>
               { children }
             </nav>
           </div>
           
           <div className="ns-TabPanels">
-            <div className="ns-TabPanel" id="ns-TabPanelA" data-tab-panel="A">Panel reference certificat</div>
-            <div className="ns-TabPanel" id="ns-TabPanelB" data-tab-panel="B">Panel nom du participant</div>
+            <div ref={ref => this.refTabContentA=ref} className="ns-TabPanel" id="ns-TabPanelA" data-tab-panel="A">Panel reference certificat</div>
+            <div ref={ref => this.refTabContentB=ref}  className="ns-TabPanel" id="ns-TabPanelB" data-tab-panel="B">Panel nom du participant</div>
           </div>
         </section>
-        <span className="ns-TabNav_Indicator"></span>
+        <span ref={ref => this.tabNavCurrentLinkindicator = ref}
+          className="ns-TabNav_Indicator"></span>
       </div>
     );
   }
 
   initilize(){
-    //get tab nav
-    this.tabNavList = document.body.querySelector(".ns-TabNav");
-
-    //get tab nav current nav link indicator
-    this.tabNavCurrentLinkindicator = this.tabNavList.querySelector(".ns-TabNav_Indicator");
-
-    //get tabs module parent
-    this.tabsModule = $(".ns-TabsModule");
-    console.log("Initialize::tabsModule", this.tabsModule)
-
-    //get all tab panels
     this.tabPanels = document.querySelectorAll(".ns-TabPanel");
-
-    /**
-     * fire position indicator function right away
-     */
-      this.positionIndicator();
+    this.positionIndicator();
   }
 
   /**
@@ -97,21 +90,35 @@ class TabContainer extends Component {
   hideAllTabPanels() {
     //loop through all tab panel elements
     for (let i = 0; i < this.tabPanels.length; i++) {
-      //remove style attribute from all tab panels to hide them
       this.tabPanels[i].removeAttribute("style");
     }
   };
 
-
-  /**
-  * position indicator function
-  */
-  positionIndicator() {
-    //get left position of tab nav ul
-    var tabNavListLeftPosition = this.tabNavList.getBoundingClientRect().left;
-    //get tab module parent current data value
-    
+  handleClickTab(tabId){
+    this.tabsModule.setAttribute("data-active-tab", tabId);
+    this.hideAllTabPanels();
+    if(tabId == "A"){
+      this.refTabContentA.style.display = "block";
+    }else if(tabId == "B"){
+      this.refTabContentB.style.display = "block";
+    }
+    this.positionIndicator();
   }
+
+  positionIndicator() {
+    var tabNavListLeftPosition = this.tabNavList.getBoundingClientRect().left;
+    var tabsModuleSectionDataValue = this.tabsModule.getAttribute("data-active-tab") || "A";
+    var tabNavCurrentLinkText = this.tabNavList.querySelector("[data-tab='" + tabsModuleSectionDataValue + "'] span");
+    var tabNavCurrentLinkTextPosition = tabNavCurrentLinkText.getBoundingClientRect();
+    this.tabNavCurrentLinkindicator.style.transform =
+      "translate3d(" +
+      (tabNavCurrentLinkTextPosition.left - tabNavListLeftPosition) +
+      "px,0,0) scaleX(" +
+      tabNavCurrentLinkTextPosition.width * 0.01 +
+      ")";
+  }
+
+
 }
 
 export default TabContainer;
