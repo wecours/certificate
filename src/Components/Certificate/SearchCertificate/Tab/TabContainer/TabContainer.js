@@ -68,8 +68,24 @@ class TabContainer extends Component {
           </div>
           
           <div className="ns-TabPanels">
-            <div ref={ref => this.refTabContentA=ref} className="ns-TabPanel" id="ns-TabPanelA" data-tab-panel="A">Panel reference certificat</div>
-            <div ref={ref => this.refTabContentB=ref}  className="ns-TabPanel" id="ns-TabPanelB" data-tab-panel="B">Panel nom du participant</div>
+            <div 
+              ref={ref => this.refTabContentA=ref} 
+              className="ns-TabPanel" 
+              id="ns-TabPanelA" 
+              data-tab-panel="A" 
+              style={styleNsTabPanel}
+            >
+              Panel reference certificat
+            </div>
+            <div 
+              ref={ref => this.refTabContentB=ref} 
+              className="ns-TabPanel" 
+              id="ns-TabPanelB" 
+              data-tab-panel="B"
+              style={styleNsTabPanel}
+            >
+              Panel nom du participant
+            </div>
           </div>
         </section>
         <span ref={ref => this.tabNavCurrentLinkindicator = ref}
@@ -122,3 +138,7 @@ class TabContainer extends Component {
 }
 
 export default TabContainer;
+
+const styleNsTabPanel = {
+  display: "block"
+}
