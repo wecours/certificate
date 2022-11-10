@@ -11,6 +11,13 @@ class TabContainer extends Component {
   refTabContentB = null;
   tabNavCurrentLinkindicator = null;
 
+  state = {
+    styleNsTabPanel: {
+      display: "block"
+    }
+  }
+  
+
   /**
    * Hook => function special react
    * Repond à evenement bien defini
@@ -57,7 +64,7 @@ class TabContainer extends Component {
   render(){
     const { children } = this.props;
     return (
-      <div>
+      <div style={{position: "relative"}}>
         <section ref={ref => this.tabsModule = ref} // Récuperation element facon React
           className="ns-TabsModule" data-active-tab="A">
         
@@ -73,7 +80,7 @@ class TabContainer extends Component {
               className="ns-TabPanel" 
               id="ns-TabPanelA" 
               data-tab-panel="A" 
-              style={styleNsTabPanel}
+              style={this.state.styleNsTabPanel}
             >
               Panel reference certificat
             </div>
@@ -82,7 +89,7 @@ class TabContainer extends Component {
               className="ns-TabPanel" 
               id="ns-TabPanelB" 
               data-tab-panel="B"
-              style={styleNsTabPanel}
+              style={this.state.styleNsTabPanel}
             >
               Panel nom du participant
             </div>
@@ -95,19 +102,15 @@ class TabContainer extends Component {
   }
 
   initilize(){
-    this.tabPanels = document.querySelectorAll(".ns-TabPanel");
     this.positionIndicator();
   }
 
   /**
-   * hideAllTabPanels :
    * Manafina ny <Tab/> (Onglet) rehetra
    */
   hideAllTabPanels() {
-    //loop through all tab panel elements
-    for (let i = 0; i < this.tabPanels.length; i++) {
-      this.tabPanels[i].removeAttribute("style");
-    }
+    this.refTabContentA.style.display = "none";
+    this.refTabContentB.style.display = "none";
   };
 
   handleClickTab(tabId){
@@ -132,13 +135,10 @@ class TabContainer extends Component {
       "px,0,0) scaleX(" +
       tabNavCurrentLinkTextPosition.width * 0.01 +
       ")";
+      console.log("positionIndicator", this.tabNavCurrentLinkindicator)
   }
 
 
 }
 
 export default TabContainer;
-
-const styleNsTabPanel = {
-  display: "block"
-}

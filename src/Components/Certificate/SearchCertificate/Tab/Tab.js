@@ -5,11 +5,9 @@ class Tab extends Component {
   tabsModule = null;
   resizeTimeout = null;
 
+  // Les elements(View) ne sont pas encore rendu, ni prêt
   constructor(props){
     super(props);
-    /**
-     * Les elements(View) ne sont pas encore rendu, ni prêt
-     */
   }
 
   componentDidMount(){
@@ -18,7 +16,7 @@ class Tab extends Component {
      * A appeler ici sur componentDidMount
      * (Mais pas dans le constructor)
      */
-    this.initialize();
+     window.addEventListener("resize", this.resizeThrottler, false);
   }
   
   setTabsModule(tabsModule){
@@ -29,7 +27,6 @@ class Tab extends Component {
     const { tabTitle, tabId } = this.props;
     return (
         <a 
-          // ref={ref => this.refOnglet = ref}
           href={`#ns-TabPanel${tabId}`}
           className="ns-TabNav_Link" 
           data-tab={tabId}
@@ -38,10 +35,6 @@ class Tab extends Component {
           <span>{ tabTitle }</span>
         </a>
     )
-  }
-
-  initialize(){
-    window.addEventListener("resize", this.resizeThrottler, false);
   }
 
   handleTabClick(tabId){
@@ -57,6 +50,7 @@ class Tab extends Component {
       }, 66);
     }
   }
+
   actualResizeHandler() {
     this.positionIndicator();
   }
